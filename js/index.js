@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(autoSlideInterval);
     }
 
-    // 슬라이더로 스크롤 이동하는 함수
     function scrollToSlider() {
         const sliderContainer = document.querySelector('.slider-container');
         if (sliderContainer) {
@@ -77,12 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 게임 아이템 클릭 시 슬라이더 이동 + 스크롤
     gameItems.forEach(function(item, index) {
         item.addEventListener('click', function() {
             if (index < slides.length) {
                 showSlide(index);
-                scrollToSlider(); // 슬라이더로 스크롤
+                scrollToSlider();
                 stopAutoSlide();
                 startAutoSlide();
             }
@@ -109,44 +107,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ========== 푸터 아코디언 ==========
-    console.log('푸터 아코디언 초기화 시작');
-
     const footerColumns = document.querySelectorAll('.footer-menu-column');
-    console.log('찾은 푸터 컬럼 개수:', footerColumns.length);
 
-    footerColumns.forEach(function(column, index) {
+    footerColumns.forEach(function(column) {
         const title = column.querySelector('.footer-menu-title');
-        console.log(`컬럼 ${index + 1} 제목:`, title);
         
         if (title) {
             title.addEventListener('click', function(e) {
-                console.log('클릭 감지! 현재 화면 너비:', window.innerWidth);
+                e.preventDefault();
+                e.stopPropagation();
                 
-                if (window.innerWidth <= 480) {
-                    const wasActive = column.classList.contains('active');
-                    column.classList.toggle('active');
+                if (window.innerWidth <= 768) {
+                    footerColumns.forEach(function(otherColumn) {
+                        if (otherColumn !== column) {
+                            otherColumn.classList.remove('active');
+                        }
+                    });
                     
-                    console.log('상태 변경:', wasActive ? '열림→닫힘' : '닫힘→열림');
-                    console.log('현재 클래스:', column.className);
-                } else {
-                    console.log('화면이 너무 큼 (480px 초과)');
+                    column.classList.toggle('active');
                 }
             });
-            
-            console.log(`컬럼 ${index + 1} 이벤트 리스너 추가 완료`);
-        } else {
-            console.log(`컬럼 ${index + 1} 제목 없음!`);
         }
     });
 
     window.addEventListener('resize', function() {
-        if (window.innerWidth > 480) {
+        if (window.innerWidth > 768) {
             footerColumns.forEach(function(column) {
                 column.classList.remove('active');
             });
-            console.log('화면 확대: 모든 메뉴 닫힘');
         }
     });
 
-    console.log('푸터 아코디언 초기화 완료');
-});
+});  
