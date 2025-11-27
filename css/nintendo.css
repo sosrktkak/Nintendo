@@ -37,7 +37,7 @@ height: fit-content;
     align-items: stretch;
     padding: 0;
     border-bottom: 1px solid #e0e0e0;
-    height: 80px;
+    height: 73px;
 }
 
 .logo-section {
@@ -45,7 +45,7 @@ height: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1; 
+    flex: 1.12; 
 }
 
 .logo-icon {
@@ -58,7 +58,7 @@ height: fit-content;
     display: flex;
     list-style: none;
     gap: 0;
-    flex: 6; /* 6개 메뉴 아이템이 있으므로 6배 공간 */
+    flex: 6; 
 }
 
 .nav-item {
@@ -374,8 +374,8 @@ height: fit-content;
     }
 }
 
-/* 작은 모바일 (768px 이하) */
-@media (max-width: 768px) {
+/* 작은 모바일 (767px 이하) */
+@media (max-width: 767px) {
     .logo-section {
         height: 45px;
         padding-left: 12px;
@@ -423,19 +423,15 @@ height: fit-content;
 
 .slider-container {
     position: relative;
-    max-width: 100%;
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
-    height: 600px;
 }
 
 .slider-wrapper {
     position: relative;
     width: 100%;
-    max-width: 100%;
-    height: 100%;  
-    overflow: hidden;
+    /* aspect-ratio 제거하고 높이를 자동으로 */
 }
 
 .slide {
@@ -443,26 +439,24 @@ height: fit-content;
     top: 0;
     left: 0;
     width: 100%;
-    max-width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
     pointer-events: none;
-    overflow: hidden;
 }
 
 .slide.active {
     opacity: 1;
     pointer-events: auto;
+    position: relative; /* active일 때만 relative */
 }
 
 .slide img {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center top !important;
-    display: block !important;
+    width: 100%;
+    height: auto; /* auto로 변경 */
+    object-fit: contain; /* cover에서 contain으로 변경 */
+    object-position: center;
+    display: block;
 }
 
 /* 슬라이더 버튼 */
@@ -474,10 +468,9 @@ height: fit-content;
     transform: translateY(-50%);
     background: #e60012;
     border: none;
-    width: 3.5vw;
+    width: 1.5vw;
     min-width: 40px;
     max-width: 100%;
-    width: 3vh;
     height: 6vw;
     min-height: 15%;
     max-height: 70%;
@@ -513,38 +506,55 @@ height: fit-content;
     color: white;
 }
 
-/* 반응형 - 태블릿 (1024px 이하) */
-@media (max-width: 1024px) {
-    .slider-container {
-        height: 450px;
-    }
-    
-    .slider-btn {
-        min-width: 35px;
-        height: 5vw;
-    }
-    
-    .slider-dots {
-        bottom: 15px;
-        gap: 8px;
-    }
-    
-    .dot {
-        width: 10px;
-        height: 10px;
-    }
-}
-
 /* 반응형 - 태블릿 작은 화면 (1024px 이하) */
 @media (max-width: 1024px) {
-    .slider-container {
-        height: 350px;
-    }
-    
+  .social-buttons-section {
+    padding: 30px 0;
+  }
+  
+  .social-buttons-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px !important;
+    padding: 0 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .social-icons-group {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 400px;
+    justify-self: center;
+    margin-bottom: 15px;
+  }
+  
+  .social-icon {
+    min-width: 45px;
+    min-height: 45px;
+  }
+  
+  /* My Nintendo 버튼 - 오른쪽 정렬 */
+  .nintendo-button.my-nintendo {
+    width: 100%;
+    height: 60px;
+    justify-self: end;                    /* 추가: 오른쪽 끝 */
+  }
+  
+  /* amiibo 버튼 - 왼쪽 정렬 */
+  .nintendo-button.amiibo {
+    width: 100%;
+    height: 60px;
+    justify-self: start;                  /* 추가: 왼쪽 끝 */
+  }
+}
+
+/* 반응형 - 모바일 (767px 이하) */
+@media (max-width: 767px) {
     .slider-btn {
-        min-width: 30px;
-        height: 50px;
-        font-size: 1.5rem;
+        min-width: 25px;
+        height: 40px;
+        font-size: 1.2rem;
     }
     
     .slider-btn.prev {
@@ -553,39 +563,6 @@ height: fit-content;
     
     .slider-btn.next {
         right: 1%;
-    }
-    
-    .slider-dots {
-        bottom: 12px;
-        gap: 6px;
-    }
-    
-    .dot {
-        width: 8px;
-        height: 8px;
-    }
-}
-
-/* 반응형 - 모바일 (768px 이하) */
-@media (max-width: 768px) {
-    .slider-container {
-        height: 250px;
-    }
-    
-    .slider-btn {
-        min-width: 25px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-    
-    .slider-dots {
-        bottom: 10px;
-        gap: 5px;
-    }
-    
-    .dot {
-        width: 7px;
-        height: 7px;
     }
 }
 
@@ -610,12 +587,20 @@ height: fit-content;
     padding: 0;
     margin: 0;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.game-items::-webkit-scrollbar {
+    display: none;
 }
 
 .game-item {
     flex: 1;
     display: flex;
-    flex-direction: row; /* 가로 정렬 */
+    flex-direction: row;
     align-items: center;
     gap: 10px;
     padding: 15px 20px;
@@ -623,10 +608,16 @@ height: fit-content;
     border-right: 1px solid #e0e0e0;
     cursor: pointer;
     transition: all 0.3s;
+    min-width: 0;
 }
 
 .game-item:last-child {
     border-right: none;
+}
+
+.game-item.active .game-title {
+    color: #e60012;
+    font-weight: 600;
 }
 
 .game-item:hover .game-title {
@@ -651,60 +642,200 @@ height: fit-content;
     font-weight: 500;
     line-height: 1.3;
     text-align: left;
-    transition: color 0.3s; 
+    transition: color 0.3s;
+    white-space: nowrap;
 }
 
 /* 반응형 - 1024px 이하 */
 @media (max-width: 1024px) {
+    .game-list {
+        background: #f5f5f5;
+    }
+    
+    /* 데스크톱과 동일한 레이아웃 유지 */
+    .game-items {
+        display: flex;
+        gap: 0;
+        background: white;
+    }
+    
+    .game-item {
+        flex: 1; /* 데스크톱처럼 균등 분할 */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 15px; /* 패딩만 약간 줄임 */
+        background: white;
+        border-right: 1px solid #e0e0e0;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .game-item:last-child {
+        border-right: none;
+    }
+    
+    .game-item:hover {
+        background: #f9f9f9;
+    }
+    
+    .game-item:hover .game-title {
+        color: #e60012;
+    }
+    
+    /* 아이콘 + 텍스트 모두 표시 */
+    .game-icon {
+        width: 35px; /* 조금만 작게 */
+        height: 35px;
+        min-width: 35px;
+    }
+    
+    .game-title {
+        font-size: 0.75rem; /* 폰트만 약간 작게 */
+        color: #333;
+        font-weight: 500;
+        line-height: 1.3;
+        display: block; /* 텍스트 표시 */
+        white-space: nowrap;
+    }
+}
+
+/* 반응형 - 767px 이하 (모바일 스타일) */
+@media (max-width: 767px) {
+    .game-list {
+        padding: 0;
+        margin: 0;
+        background: #f5f5f5;
+    }
+    
+    .game-list .container {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+    
     .game-items {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        gap: 0;
-        border-bottom: 1px solid #e0e0e0; 
+        gap: 22px;
+        border-bottom: 1px solid #e0e0e0;
+        justify-content: flex-start;
+        padding: 12px 15px;
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
     }
     
     .game-item {
-        flex: 0 0 20%;
-        min-width: 20%;
-        flex-direction: column;
+        flex: 0 0 auto;
+        min-width: auto;
+        flex-direction: row;
         align-items: center;
         gap: 8px;
-        padding: 15px 10px;
-        border: none; 
+        padding: 0;
+        border-right: none;
+        white-space: nowrap;
+        background: white;
     }
     
+    .game-item:first-child {
+        padding-left: 0;
+    }
+    
+    .game-item:last-child {
+        padding-right: 0;
+    }
+    
+    .game-item:hover {
+        background: #f9f9f9;
+    }
+
+    .game-item .game-title {
+        display: none;
+    }
+    
+    .game-item.active .game-title {
+        display: block;
+        color: #e60012;
+        font-weight: 600;
+    }
+
     .game-item:hover .game-title {
         color: #e60012;
     }
-
+    
     .game-icon {
-        width: 50px;
-        height: 50px;
-        min-width: 50px;
-        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
     }
     
     .game-title {
         font-size: 0.75rem;
-        font-weight: 500;
-        line-height: 1.3;
-        text-align: center;
-        word-break: keep-all;
+        white-space: nowrap;
     }
 }
 
-/* 반응형 - 768px 이하 */
-@media (max-width: 768px) {
+/* 반응형 - 767px 이하 */
+@media (max-width: 767px) {
+    .game-list {
+        padding: 0;
+        margin: 0;
+        background: #f5f5f5;
+    }
+    
+    .game-list .container {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+    
     .game-items {
-        border-bottom: 1px solid #e0e0e0; /* 아래 밑줄 유지 */
+        border-bottom: 1px solid #e0e0e0;
+        justify-content: flex-start;
+        padding: 12px 15px;
+        margin: 0;
+        gap: 22px; /* 12px → 22px */
+        width: 100%;
+        box-sizing: border-box;
+        background: white;
     }
     
     .game-item {
-        flex: 0 0 20%;
-        min-width: 20%;
-        padding: 12px 8px;
-        border: none; /* 구분선 제거 */
+        flex: 0 0 auto;
+        min-width: auto;
+        padding: 0;
+        border-right: none;
+        flex-direction: row;
+        gap: 8px;
+        background: white;
+    }
+    
+    .game-item:first-child {
+        padding-left: 0;
+    }
+    
+    .game-item:last-child {
+        padding-right: 0;
+    }
+    
+    .game-item:hover {
+        background: #f9f9f9;
+    }
+
+    /* 비활성화 상태: 텍스트 숨김 */
+    .game-item .game-title {
+        display: none;
+    }
+    
+    /* 활성화 상태: 텍스트 보임 + 빨간색 */
+    .game-item.active .game-title {
+        display: block;
+        color: #e60012;
+        font-weight: 600;
     }
 
     .game-item:hover .game-title {
@@ -712,13 +843,14 @@ height: fit-content;
     }
     
     .game-icon {
-        width: 45px;
-        height: 45px;
-        min-width: 45px;
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
     }
     
     .game-title {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
     }
 }
 
@@ -750,7 +882,7 @@ height: fit-content;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .banner {
         width: 90%;
         padding: 40px 0;
@@ -758,30 +890,17 @@ height: fit-content;
     }
     
     .banner img {
-        width: 85%;
-        min-width: 280px;
-    }
-}
-
-@media (max-width: 480px) {
-    .banner {
-        width: 95%;
-        padding: 30px 0;
-        margin-top: 40px;
-    }
-    
-    .banner img {
         width: 100%;
-        min-width: 250px;  /* 최소 250px 유지 */
+        min-width: 320px;
     }
 }
 
 /* ========== 뉴스 섹션 ========== */
 .update {
-    width: 1440px;
+    width: 1280px;
     max-width: 100%;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 5px 20px 60px;
 }
 
 .newstitle {
@@ -860,13 +979,14 @@ height: fit-content;
 
 /* 뉴스 제목 */
 .news-title {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     color: #333;
     margin-bottom: 15px;
     height: 72px;  
     overflow: hidden;  
     font-weight: 500;
+    font-family: bold;
     transition: color 0.3s;  
 }
 
@@ -876,19 +996,21 @@ height: fit-content;
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #666;
     position: absolute;
-    bottom: 25px;  
+    bottom: 15px;  
     left: 0;
 }
 
 .news-category {
     color: #666;
+    font-size: 0.75rem;
 }
 
 .news-date {
     color: #999;
+    font-size: 0.75rem;
 }
 
 /* 뉴스 카드 */
@@ -951,15 +1073,21 @@ height: fit-content;
     right: 0;
     width: 18px;
     height: 18px;
-    background: #e60012;
-    color: white;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
-    font-weight: bold;
     transition: all 0.3s;
+}
+
+.news-arrow img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 50%;
+}
+
+.news-card:hover .news-arrow {
+    transform: scale(1.1);
 }
 
 .news-arrow span {
@@ -1021,104 +1149,54 @@ height: fit-content;
 .mainbanner {
   width: 100%;
   max-width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 140px; /* 원하는 높이 설정 */
+  background-image: url('../image/main_banner_eshop.gif');
+  background-size: cover; /* 또는 contain */
+  background-position: center;
+  background-repeat: no-repeat;
   transform: translateY(-50px);
   overflow: hidden;
-  min-height: 200px;
 }
 
-.mainbanner img {
-  width: auto !important;
-  max-width: none !important;
-  min-width: 1000px;
-  height: 250px !important;
-  display: block !important;
-  object-fit: contain !important;
-  min-height: 300px;
-}
-
+/* 반응형 - 뉴스 섹션 */
 @media (max-width: 1024px) {
-  .mainbanner {
-    transform: translateY(-30px);
-  }
-  
-  .mainbanner img {
-    min-width: 250px;
+    .news-arrow {
+    width: 14px !important;
+    height: 14px !important;
   }
 
-  .news-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-  /* 호버 시 제목 빨갛게 */
-  .news-card:hover .news-title {
-        color: #e60012;
-    }
-}
-
-@media (max-width: 768px) {
-  .mainbanner {
-    transform: translateY(-20px);
-  }
-  
-  .mainbanner img {
-    min-width: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .mainbanner {
-    transform: translateY(-10px);
-  }
-  
-  .mainbanner img {
-    min-width: 150px;  
-  }
-
-  .news-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-    
-  .newstitle {
-    flex-direction: column;
-    gap: 5px;
-  }
-    
-  .newstitle h1 {
-    font-size: 1.5rem;
-  }
-}
-
-  /* 호버 시 제목 빨갛게 */
-  .news-card:hover .news-title {
-  color: #e60012;
-  }
-
-  @media (max-width: 480px) {
-  .news-grid {
-  grid-template-columns: 1fr;
-  }
-    
-  /* 호버 시 제목 빨갛게 */
-  .news-card:hover .news-title {
-  color: #e60012;
-  }
-}
-
-/* 반응형 */
-@media (max-width: 1024px) {
-    .news-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .news-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .update .news-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
         gap: 15px;
+    }
+
+  .news-title {
+    font-size: 0.8rem !important;
+    line-height: 1.4 !important;
+    height: auto !important;               
+    min-height: 50px !important;         
+    overflow: visible !important;  
+  }
+  
+  /* 카테고리/날짜 작게 */
+  .news-category,
+  .news-date {
+    font-size: 0.65rem !important;
+  }
+    
+  .news-card:hover .news-title {
+    color: #e60012;
+  }
+}
+
+@media (max-width: 767px) {
+    .news-arrow {
+    width: 12px !important;
+    height: 12px !important;
+    }
+    .update .news-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 12px;
     }
     
     .newstitle {
@@ -1129,17 +1207,43 @@ height: fit-content;
     .newstitle h1 {
         font-size: 1.5rem;
     }
+
+    .newstitle p {
+        display: none;
+    }
+
+    .news-title {
+    font-size: 0.7rem !important;  /* 추가 */
+    line-height: 1.3 !important;
+    height: auto !important;
+    min-height: 50px;
+  }
+  
+  /* 뉴스 카테고리 크기 줄이기 */
+  .news-category {
+    font-size: 0.6rem !important;  /* 추가 */
+    color: #666;
+  }
+  
+  /* 뉴스 날짜 크기 줄이기 */
+  .news-date {
+    font-size: 0.6rem !important;  /* 추가 */
+    color: #999;
+  }
+  
+  /* 뉴스 메타 정보 전체 */
+  .news-meta {
+    font-size: 0.6rem !important;  /* 추가 */
+  }
 }
 
-@media (max-width: 480px) {
-    .news-grid {
-        grid-template-columns: 1fr;
-    }
-}
+
+
+
 
 /* 주요 소프트웨어 섹션 */
 .software-pickup {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 60px 20px;
@@ -1244,7 +1348,7 @@ height: fit-content;
 
 /* 소프트웨어 이름 */
 .software-name {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.5;
   color: #333;
   margin-bottom: 15px;
@@ -1267,7 +1371,7 @@ height: fit-content;
   display: inline-block;
   background: transparent;
   color: #666;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 400;
   padding: 0;
   margin: 0;
@@ -1275,7 +1379,7 @@ height: fit-content;
 
 /* 출시일 */
 .release-date {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #999;
   font-weight: 400;
   display: block;
@@ -1288,17 +1392,20 @@ height: fit-content;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #666;
   position: absolute;
   bottom: -45px;
   left: 0;
   right: 80px; /* 우측 배지 공간 확보 */
+  line-height: 1.4;
+  word-break: keep-all;
 }
 
 .region {
   font-weight: 400;
   color: #666;
+  font-size: 0.75rem;
 }
 
 /* 배지들 - 세로 배치로 변경 */
@@ -1315,8 +1422,11 @@ height: fit-content;
 }
 
 .icon-badge {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #666;
+  line-height: 1.4;
+  word-break: keep-all;
+  white-space: normal;
 }
 
 /* 우측 하단 배지와 화살표 영역 */
@@ -1354,16 +1464,19 @@ height: fit-content;
   right: 7px;
   width: 18px;
   height: 18px;
-  background: #e60012;
-  color: white;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
-  font-weight: bold;
   transition: all 0.3s;
   z-index: 10;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.software-pickup .software-card a .software-info .card-arrow img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .software-pickup .software-card:hover a .software-info .card-arrow {
@@ -1421,12 +1534,15 @@ height: fit-content;
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
   .software-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
   }
   
   .software-name {
+    font-size: 0.75rem !important;
     height: auto !important;
-    min-height: 72px;
+    min-height: 50px;
+    line-height: 1.3;
     overflow: visible !important;
   }
 
@@ -1434,29 +1550,56 @@ height: fit-content;
     color: #e60012;
   }
   
+  .platform-badge {
+    font-size: 0.65rem !important;
+  }
+
+  .region {
+    font-size: 0.65rem !important;
+  }
+
+  .icon-badge {
+    font-size: 0.65rem !important;
+    line-height: 1.4;
+  }
+
   .software-card {
-    padding-bottom: 70px !important;
+    padding-bottom: 75px !important;
   }
   
   .software-meta {
+    font-size: 0.65rem !important;
     bottom: -70px !important;
+    line-height: 1.4;
   }
   
   /* 배지들 위치 조정 */
   .software-card .image-badges {
-    bottom: -48px !important; 
+    bottom: -50px !important;
+    right: 5px !important;
+    gap: 2px !important; 
+  }
+
+   .software-card > a > .image-badges .age-badge,
+  .software-card > a > .image-badges .lang-badge {
+    width: 24px !important; /* 크기 줄이기 */
+    height: 24px !important;
+    padding: 2px !important;
   }
   
   /* 화살표 위치 조정 */
   .software-pickup .software-card a .software-info .card-arrow {
-    bottom: -70px !important;  
+    bottom: -70px !important;
+    right: 5px !important;
+    width: 14px !important;
+    height: 14px !important;  
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 .software-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
   }
 
   .section-header {
@@ -1465,66 +1608,101 @@ height: fit-content;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.0rem;
+  }
+
+  .section-header p {
+    display: none;
+  }
+
+    .release-date {
+    font-size: 0.6rem !important;  /* 모바일에서만 작게 */
+  }
+  
+  .icon-badge {
+    font-size: 0.6rem !important;  /* 모바일에서만 작게 */
+  }
+  
+  .region {
+    font-size: 0.6rem !important;  /* 모바일에서만 작게 */
   }
   
   .software-name {
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     height: auto !important;
-    min-height: 60px;
-    line-height: 1.4;
+    min-height: 45px;
+    line-height: 1.3;
     overflow: visible !important;
+    margin-bottom: 8px !important;
   }
   
   .software-card {
     padding-bottom: 70px !important;
   }
+
+  .platform-badge {
+    font-size: 0.55rem !important;
+  }
+
+  .release-date {
+    font-size: 0.55rem !important;
+  }
+  
+  .region {
+    font-size: 0.55rem !important;
+  }
+  
+  .icon-badge {
+    font-size: 0.55rem !important;
+    line-height: 1.4;
+  }
   
   .software-meta {
-    font-size: 0.8rem;
-    bottom: -70px !important;
+    font-size: 0.55rem;
+    bottom: -68px !important;
+    line-height: 1.4;
   }
   
   /* 배지들 위치 조정 */
   .software-card .image-badges {
     bottom: -48px !important;
+    right: 3px !important;
+    gap: 2px !important;
   }
+
+  .software-card > a > .image-badges .age-badge,
+  .software-card > a > .image-badges .lang-badge {
+    width: 18px !important; /* 더 작게 */
+    height: 18px !important;
+    padding: 1px !important;
+  }
+  
   
   /* 화살표 위치 조정 */
   .software-pickup .software-card a .software-info .card-arrow {
     bottom: -70px !important;
+    right: 2px !important;
+    width: 12px !important;
+    height: 12px !important;
   }
-}
-
-@media (max-width: 480px) {
-  .software-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .software-name {
-    font-size: 0.95rem;
-    height: auto !important;
-    min-height: unset;
-  }
-
-   .software-card:hover .software-name {
-    color: #e60012;
-  }
-  
 }
 
 /* ========== 특집 배너 섹션 ========== */
 .featured-banners {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .banner-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  width: 100%;
+  max-width: 1240px;
 }
 
 .banner-item {
@@ -1563,32 +1741,38 @@ height: fit-content;
 /* 반응형 - 태블릿 */
 @media (max-width: 1024px) {
   .banner-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 20px !important;                    /* 15px → 20px */
+    width: 100% !important;
   }
   
-  .banner-text {
-    font-size: 1.2rem;
-    padding: 20px;
+  .banner-item {
+    width: calc(33.333% - 14px) !important;  /* 10px → 14px */
+    display: block !important;
   }
 }
 
 /* 반응형 - 모바일 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .banner-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;                    /* 8px → 12px */
+    width: 100% !important;
   }
   
-  .banner-text {
-    font-size: 1rem;
-    padding: 15px;
+  .banner-item {
+    width: calc(33.333% - 8px) !important;   /* 6px → 8px */
+    display: block !important;
   }
 }
 
 /* ========== 다운로드 섹션 ========== */
 .download-section {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 80px auto;
   padding: 0 20px;
@@ -1700,7 +1884,7 @@ height: fit-content;
 }
 
 /* 반응형 - 모바일 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .download-intro h2 {
     font-size: 1.4rem;
   }
@@ -1810,8 +1994,8 @@ height: fit-content;
   }
 }
 
-/* 반응형 - 태블릿 작은 화면 (768px 이하) */
-@media (max-width: 768px) {
+/* 반응형 - 태블릿 작은 화면 (767px 이하) */
+@media (max-width: 767px) {
   .tab-section {
     margin: 60px 0 0 0;
   }
@@ -1868,7 +2052,7 @@ height: fit-content;
 }
 
 .red-section-container {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -1938,7 +2122,7 @@ height: fit-content;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .nintendo-logo-box img {
     width: 100px;
   }
@@ -1957,7 +2141,7 @@ height: fit-content;
 }
 
 .social-buttons-container {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
@@ -2067,8 +2251,8 @@ height: fit-content;
   }
 }
 
-/* 반응형 - 모바일 (768px 이하) */
-@media (max-width: 768px) {
+/* 반응형 - 모바일 (767px 이하) */
+@media (max-width: 767px) {
   .social-buttons-section {
     padding: 25px 0;
   }
@@ -2111,7 +2295,7 @@ height: fit-content;
 }
 
 .footer-menu-container {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 40px;
@@ -2179,23 +2363,49 @@ height: fit-content;
     margin-left: 0;
   }
   
-  .footer-menu-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+ .footer-menu-container {
+    display: flex !important;              /* grid → flex */
+    flex-direction: row !important;        /* 가로 정렬 */
+    justify-content: space-between;
+    gap: 20px;
     padding: 0 20px;
+    flex-wrap: nowrap;                     /* 한 줄로 유지 */
+  }
+
+  .footer-menu-column {
+    flex: 1;                               /* 균등 분할 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   
   .footer-menu-title {
     font-size: 15px;
+    white-space: nowrap;                   /* 제목 한 줄 유지 */
+    cursor: pointer;
+  }
+
+  .footer-menu-list {
+    display: block !important;             /* 리스트 표시 */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s, opacity 0.3s;
   }
   
   .footer-menu-list a {
     font-size: 13px;
   }
+
+  .footer-menu-column.active .footer-menu-list {
+    max-height: 500px;
+    opacity: 1;
+  }
 }
 
 /* 480px 이하 - 1열 아코디언 레이아웃 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .footer-menu-section {
     padding: 0 !important;
     margin-left: 0 !important;
@@ -2291,7 +2501,7 @@ height: fit-content;
 }
 
 .footer-bottom-container {
-  width: 1440px;
+  width: 1280px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 40px;
@@ -2373,7 +2583,7 @@ height: fit-content;
 }
 
 /* 반응형 - 모바일 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .footer-bottom {
     padding: 20px 0;
   }

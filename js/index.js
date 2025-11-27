@@ -21,9 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
+        gameItems.forEach(item => item.classList.remove('active'));
 
         if (slides[currentSlide]) slides[currentSlide].classList.add('active');
         if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        if (gameItems[currentSlide]) {
+            gameItems[currentSlide].classList.add('active');
+        }
     }
 
     function nextSlide() {
@@ -45,10 +49,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function scrollToSlider() {
         const sliderContainer = document.querySelector('.slider-container');
         if (sliderContainer) {
-            sliderContainer.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const rect = sliderContainer.getBoundingClientRect();
+            const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+            
+            if (!isVisible) {
+                sliderContainer.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         }
     }
 
@@ -77,12 +86,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     gameItems.forEach(function(item, index) {
-        item.addEventListener('click', function() {
+        item.addEventListener('mouseenter', function() {
             if (index < slides.length) {
                 showSlide(index);
-                scrollToSlider();
                 stopAutoSlide();
-                startAutoSlide();
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            startAutoSlide();
+        });
+        
+        item.addEventListener('click', function() {
+            if (index < slides.length) {
+                scrollToSlider();
             }
         });
     });
@@ -98,15 +115,29 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoSlide();
     }
 
+    // ========== 맨 위로 버튼만 제외하고 # 링크 기본 동작 막기 ==========
+    document.querySelectorAll('a[href="#"]').forEach(function(link) {
+        // 맨 위로 버튼이 아닌 경우만 기본 동작 막기
+        if (!link.closest('.scroll-top-button')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+
     // ========== 맨 위로 버튼 ==========
     const scrollTopBtn = document.querySelector('.scroll-top-button');
     if (scrollTopBtn) {
-        scrollTopBtn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
         });
     }
 
-    // ========== 푸터 아코디언 ==========
+    // ========== 푸터 아코디언 (767px 이하에서만) ==========
     const footerColumns = document.querySelectorAll('.footer-menu-column');
 
     footerColumns.forEach(function(column) {
@@ -114,28 +145,25 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (title) {
             title.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (window.innerWidth <= 768) {
-                    footerColumns.forEach(function(otherColumn) {
-                        if (otherColumn !== column) {
-                            otherColumn.classList.remove('active');
-                        }
-                    });
+                // 767px 이하에서만 작동
+                if (window.innerWidth <= 767) {
+                    e.preventDefault();
+                    e.stopPropagation();
                     
+                    // 현재 컬럼 토글
                     column.classList.toggle('active');
                 }
             });
         }
     });
 
+    // 화면 크기 변경 시 767px 초과하면 모든 아코디언 닫기
     window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 767) {
             footerColumns.forEach(function(column) {
                 column.classList.remove('active');
             });
         }
     });
 
-});  
+});
